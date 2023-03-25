@@ -8,20 +8,27 @@ from laser_line_extraction.msg import LineSegmentList
 
 def callback(msg):
     rate = rospy.Rate(15)
-    lines = msg.line_segments #list of classes (lines)
-    front_lines = []
-    front_lines.append((10, 10))
+    
+    # Extract a list of lines (class) from incoming message 
+    lines = msg.line_segments 
+    
+    # Initialize front_lines list 
+    front_lines = [(10, 10)]
     
     for i, line in enumerate(lines):
 
-        # [(-0.4),(0.4)] = 0.8rasds = 45.836 degrees
+        # Filter incoming lines besed on area of interest
+        # 0.8rads = 45.836 degrees visual angle in front of robot
         if (line.angle < 0.4 and line.angle > -0.4): 
             front_lines.append((i, line.radius)) 
 
-    front_lines.sort(key=lambda x:x[1]) # Sort based on minimum distance
-    radius = front_lines[0][1] # Take minimum distance
-    #rospy.loginfo(radius)
+    # Sort based on minimum distance
+    front_lines.sort(key=lambda x:x[1])
 
+    # Extract minimum distance from potential obstacle
+    radius = front_lines[0][1] 
+
+    # Stop approximately 15cm from obstacle
     if radius > 0.15 :
         move.linear.x = 0.1 
     
@@ -31,8 +38,12 @@ def callback(msg):
     pub.publish(move)
 
 
-rospy.init_node('base_approach2')
+rospy.init_node('base_approach')
+
+# Subscribe to LiDAR Sensors topic 
 sub = rospy.Subscriber('/line_segments', LineSegmentList, callback)
+
+# Publish movement to dynamixel accuators
 pub = rospy.Publisher('/dynamixel_workbench/cmd_vel', Twist, queue_size=10)
  
 move = Twist()
