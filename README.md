@@ -28,7 +28,10 @@ source <path-to-catkin-ws>/devel/setup.bash
 ## Usage
 
 1. Start the ROS master: `roscore`
-2. Launch the node: `rosrun base_approach base_approach.py`
+2. Launch the node: 
+```
+rosrun base_approach base_approach.py
+```
 
 **Note:** Modify the topics for the subscriber and publisher to match your robot's configuration.
 
