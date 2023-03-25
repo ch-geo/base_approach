@@ -5,7 +5,6 @@ from geometry_msgs.msg import Twist
 from laser_line_extraction.msg import LineSegmentList
 
 
-
 def callback(msg):
     rate = rospy.Rate(15)
     
