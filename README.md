@@ -15,9 +15,15 @@ If the minimum distance is less than or equal to 15 cm, the node commands the ro
 
 ## Installation
 
-1. Clone this repository into your catkin workspace: `git clone https://github.com/ch-geo/base_approach.git`    
+1. Clone this repository into your catkin workspace:  
+```
+git clone https://github.com/ch-geo/base_approach.git
+```
 2. Run `catkin_make` to build the package.
-3. Source the workspace: `source <path-to-catkin-ws>/devel/setup.bash`
+3. Source the workspace: 
+```
+source <path-to-catkin-ws>/devel/setup.bash
+```
 
 ## Usage
 
